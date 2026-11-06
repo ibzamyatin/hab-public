@@ -4,7 +4,7 @@
   function resize(){w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);grid.width=canvas.width;grid.height=canvas.height;gridCtx.setTransform(dpr,0,0,dpr,0,0);gridCtx.lineWidth=.6;gridCtx.strokeStyle='rgba(160,116,73,.13)';gridCtx.beginPath();for(var x=0;x<w;x+=72){gridCtx.moveTo(x,0);gridCtx.lineTo(x,h)}for(var y=0;y<h;y+=72){gridCtx.moveTo(0,y);gridCtx.lineTo(w,y)}gridCtx.stroke();paint(performance.now(),true)}
   function paint(now,force){raf=0;var token=run;if(document.hidden)return;if(!force&&now-last<80){raf=requestAnimationFrame(paint);return}last=now;
     ctx.clearRect(0,0,w,h);ctx.drawImage(grid,0,0,w,h);var step=72;
-    if(!motion.matches)for(var i=0;i<6;i++){
+    if(!motion.matches&&now%12000<3600)for(var i=0;i<6;i++){
       var phase=(now*.00009+i*.173)%1;if(phase>.72)continue;
       var horizontal=i%2===0,len=horizontal?w:h,head=phase/.72*(len+260)-130,lane=(i*191+Math.floor(now/16000)*72)%(horizontal?h:w);lane=Math.round(lane/step)*step;
       var gradient=horizontal?ctx.createLinearGradient(head-150,0,head,0):ctx.createLinearGradient(0,head-150,0,head);gradient.addColorStop(0,'rgba(185,112,58,0)');gradient.addColorStop(.75,'rgba(226,160,100,.3)');gradient.addColorStop(1,'rgba(255,225,181,.9)');ctx.strokeStyle=gradient;ctx.lineWidth=1.3;ctx.beginPath();if(horizontal){ctx.moveTo(head-150,lane);ctx.lineTo(head,lane)}else{ctx.moveTo(lane,head-150);ctx.lineTo(lane,head)}ctx.stroke();
