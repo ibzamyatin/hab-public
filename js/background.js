@@ -17,6 +17,6 @@
       else timer=setTimeout(function(){raf=requestAnimationFrame(paint)},12000-phase);
     }
   }
-  addEventListener('resize',function(){clearTimeout(timer);cancelAnimationFrame(raf);resize()});document.addEventListener('visibilitychange',function(){cancelAnimationFrame(raf);if(!document.hidden)paint(performance.now(),true)});motion.addEventListener('change',function(){cancelAnimationFrame(raf);paint(performance.now(),true)});resize();
+  addEventListener('resize',function(){clearTimeout(timer);cancelAnimationFrame(raf);resize()});document.addEventListener('visibilitychange',function(){clearTimeout(timer);cancelAnimationFrame(raf);if(!document.hidden)paint(performance.now(),true)});motion.addEventListener('change',function(){clearTimeout(timer);cancelAnimationFrame(raf);paint(performance.now(),true)});resize();
 })();
 

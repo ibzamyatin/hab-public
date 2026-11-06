@@ -133,7 +133,7 @@
     });
     // Drop completed records: later scrolls only visit unfinished details.
     pieces=pieces.filter(function(p){return p.state!==2});
-    if(!pieces.length&&overlay)overlay.hidden=true;
+    if(!running&&overlay)overlay.hidden=true;
     if(running)schedule();
   }
   function enable(){
