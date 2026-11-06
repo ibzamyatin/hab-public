@@ -72,7 +72,7 @@
     });
     root.querySelectorAll('h1,img').forEach(function(el){if(!el.closest('[hidden],.swarm-detail'))add(el,false)});
   }
-  function add(el,svg){var i=nextId++;pieces.push({el:el,svg:svg,i:i,state:0,progress:0,start:0,duration:2650+random(i,2)*1050,delay:random(i,3)*650,angle:random(i,1)*Math.PI*2,distance:100+random(i,4)*260});var p=pieces[pieces.length-1];p.building=el.closest('[data-building]');if(p.building)p.building.swarmRemaining=(p.building.swarmRemaining||0)+1;el.dataset.swarmId=String(i);el.classList.add('swarm-detail')}
+  function add(el,svg){var i=nextId++;pieces.push({el:el,svg:svg,i:i,state:0,progress:0,start:0,duration:2200+random(i,2)*900,delay:random(i,3)*520,angle:random(i,1)*Math.PI*2,distance:100+random(i,4)*260});var p=pieces[pieces.length-1];p.building=el.closest('[data-building]');if(p.building)p.building.swarmRemaining=(p.building.swarmRemaining||0)+1;el.dataset.swarmId=String(i);el.classList.add('swarm-detail')}
   function schedule(){if(enabled&&!frame)frame=requestAnimationFrame(draw)}
   function measure(){
     // Completed pieces never move again; pending anchors are measured at their layout positions.
