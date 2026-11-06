@@ -24,7 +24,7 @@
     if(prepared.has(root))return;prepared.add(root);
     root.querySelectorAll('svg').forEach(function(svg){if(svg.dataset.swarmPrepared)return;svg.dataset.swarmPrepared='true';
       // Keep the comparison chart out of the assembly system: it draws its own lines.
-      if(svg.closest('.gr'))return;if(svg.closest('[hidden]')){delete svg.dataset.swarmPrepared;return}
+      if(svg.closest('.gr'))return;if(svg.closest('[data-stone-icon]')){if(svg.matches('[data-stone-icon]'))add(svg,false);return}if(svg.closest('[hidden]')){delete svg.dataset.swarmPrepared;return}
       // Miniature team scenes use shared geometry and one carrier per illustration.
       var floor=svg.querySelector('path[fill="#181818"][stroke="#313131"]');
       if(floor){
@@ -44,7 +44,7 @@
         // Short glowing comet tail shares the same path and timing.
         for(var k=1;k<=3;k++){var tail=dot.cloneNode(true);tail.setAttribute('r',String(2.2-k*.4));tail.setAttribute('fill',k===1?'#eeb074':'#be7547');var am=tail.querySelector('animateMotion');var begin=parseFloat(am.getAttribute('begin'))||0;am.setAttribute('begin',(begin+k*.045)+'s');wires.insertBefore(tail,dot)}
       });
-      if(root.id==='team'){add(svg,false);return}
+      if((root.closest('#team,#dirs')!==null)){add(svg,false);return}
       expand(svg,0);
       svg.querySelectorAll('path,rect,circle,ellipse,line,polyline,polygon,use').forEach(function(el){
         if(el.closest('defs,clipPath,mask,filter'))return;

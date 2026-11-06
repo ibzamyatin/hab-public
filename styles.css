@@ -154,3 +154,9 @@ body{background:#131209}main{position:relative;z-index:1}#hero,main>.sec{backgro
 
 /* Settled architecture does not keep decorative CSS transforms running. */
 .swarm-done .bob,.swarm-done.bob,.swarm-done .spin,.swarm-done .fl{animation:none}
+
+/* Shared stone surfaces and fitted architectural miniatures. */
+.vs h3,.vs .n{background-color:var(--bg1);background-image:var(--stone-fissures),radial-gradient(ellipse at 0 0,rgba(204,180,153,.10),transparent 65%);background-size:720px 420px,100% 100%}
+.role .rs{height:72px;width:80px;overflow:visible;flex-shrink:0}.role .rs use{filter:none}
+.pill .ic{width:64px;height:64px;background:none;border-radius:0}.pill .ic>svg{width:64px;height:64px;filter:drop-shadow(0 5px 3px #0005)}
+.stone-meeting{max-height:160px;width:100%;filter:drop-shadow(0 12px 8px #0008)}
