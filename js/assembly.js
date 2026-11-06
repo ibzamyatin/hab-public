@@ -2,7 +2,7 @@
   'use strict';
   var motion=matchMedia('(prefers-reduced-motion: reduce)');
   var ns='http://www.w3.org/2000/svg', colors=['#D49A65','#9B8CFF','#4FD1E0','#FFB547','#FF7A6B','#FFFFFF'];
-  var pieces=[], cursors=[], overlay, frame=0, dirty=true, enabled=false, lastFrame=0;
+  var pieces=[], cursors=[], overlay, frame=0, dirty=true, enabled=false, lastFrame=0, nextId=0;
   var prepared=new WeakSet(),sectionObserver,sceneObserver;
   function random(i,s){var x=Math.sin(i*127.1+s*311.7)*43758.5453;return x-Math.floor(x)}
   // Expand reused buildings into independent roof, wall, window and foundation paths.
@@ -72,7 +72,7 @@
     });
     root.querySelectorAll('h1,img').forEach(function(el){if(!el.closest('[hidden],.swarm-detail'))add(el,false)});
   }
-  function add(el,svg){var i=pieces.length;pieces.push({el:el,svg:svg,i:i,state:0,progress:0,start:0,duration:2650+random(i,2)*1050,delay:random(i,3)*650,angle:random(i,1)*Math.PI*2,distance:100+random(i,4)*260});var p=pieces[pieces.length-1];p.building=el.closest('[data-building]');if(p.building)p.building.swarmRemaining=(p.building.swarmRemaining||0)+1;el.dataset.swarmId=String(i);el.classList.add('swarm-detail')}
+  function add(el,svg){var i=nextId++;pieces.push({el:el,svg:svg,i:i,state:0,progress:0,start:0,duration:2650+random(i,2)*1050,delay:random(i,3)*650,angle:random(i,1)*Math.PI*2,distance:100+random(i,4)*260});var p=pieces[pieces.length-1];p.building=el.closest('[data-building]');if(p.building)p.building.swarmRemaining=(p.building.swarmRemaining||0)+1;el.dataset.swarmId=String(i);el.classList.add('swarm-detail')}
   function schedule(){if(enabled&&!frame)frame=requestAnimationFrame(draw)}
   function measure(){
     // Completed pieces never move again; pending anchors are measured at their layout positions.
@@ -85,7 +85,7 @@
       if(p.svg){var m=p.el.getScreenCTM();if(m){p.sx=Math.hypot(m.a,m.b)||1;p.sy=Math.hypot(m.c,m.d)||1}}
     });dirty=false;
   }
-  function finish(p){if(p.state===2)return;if(p.building){p.building.swarmRemaining--;if(!p.building.swarmRemaining)p.building.classList.add('texture-ready')}p.el.classList.remove('swarm-flying');if(p.cursor){p.cursor.remove();p.cursor=null}p.state=2;p.progress=1;p.el.classList.add('swarm-done');['--swarm-x','--swarm-y','--swarm-r','--swarm-opacity'].forEach(function(k){p.el.style.removeProperty(k)})}
+  function finish(p){if(p.state===2)return;if(p.building){p.building.swarmRemaining--;if(!p.building.swarmRemaining)p.building.classList.add('texture-ready')}p.el.classList.remove('swarm-flying');p.el.removeAttribute('data-swarm-id');if(p.cursor){p.cursor.remove();p.cursor=null}p.state=2;p.progress=1;p.el.classList.add('swarm-done');['--swarm-x','--swarm-y','--swarm-r','--swarm-opacity'].forEach(function(k){p.el.style.removeProperty(k)})}
   function makeCursor(p){
     var c=document.createElement('div');c.className='assembly-cursor';c.dataset.swarmId=String(p.i);c.style.color=colors[p.i%colors.length];
     c.innerHTML='<svg viewBox="0 0 26 32" fill="currentColor"><path d="M2 2L23 20L13 21L9 30Z" stroke="#131209" stroke-width="1.5" stroke-linejoin="round"/></svg>';
@@ -100,7 +100,7 @@
       if(p.state===0){
         if(top>vh*1.08){if(!p.hidden){p.el.style.setProperty('--swarm-opacity','0');p.hidden=true}return}
         if(top+p.h<0){finish(p);return}
-        p.state=1;p.el.classList.add('swarm-flying');p.start=now+p.delay;
+        if(overlay)overlay.hidden=false;p.state=1;p.el.classList.add('swarm-flying');p.start=now+p.delay;
         var x=p.left+p.w/2,y=top+p.h/2,side=p.i%4;
         var margin=100+Math.max(p.w,p.h);
         var startX=side===0?-margin:side===1?innerWidth+margin:random(p.i,7)*innerWidth;
@@ -131,6 +131,9 @@
       c.style.transform='translate3d('+(item.x-width*2/26).toFixed(2)+'px,'+(item.y-height*2/32).toFixed(2)+'px,0)';
       c.style.opacity=item.p.progress>0?'1':'0';
     });
+    // Drop completed records: later scrolls only visit unfinished details.
+    pieces=pieces.filter(function(p){return p.state!==2});
+    if(!pieces.length&&overlay)overlay.hidden=true;
     if(running)schedule();
   }
   function enable(){

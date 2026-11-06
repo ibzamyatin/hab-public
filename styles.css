@@ -151,3 +151,6 @@ body{background:#131209}main{position:relative;z-index:1}#hero,main>.sec{backgro
 @keyframes chart-fill{to{clip-path:inset(0)}}@keyframes chart-dots{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.chart-area{clip-path:none}.chart-endpoints{opacity:1}.gr.in .chart-area,.gr.in .chart-endpoints{animation:none}}
 
+
+/* Settled architecture does not keep decorative CSS transforms running. */
+.swarm-done .bob,.swarm-done.bob,.swarm-done .spin,.swarm-done .fl{animation:none}
