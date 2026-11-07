@@ -44,9 +44,9 @@ h1{font-size:48px;line-height:1.05;max-width:680px;background:linear-gradient(90
 .lead{font-size:20px;line-height:28px;color:var(--mu);max-width:680px;margin-top:var(--s24)}
 .hscene{margin:var(--s32) auto 0;max-width:1060px}
 .pills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s16);margin-top:var(--s32)}
-.pill{display:flex;align-items:flex-start;gap:var(--s16);background:var(--bg3);border:1px solid var(--bg5);border-radius:16px;padding:var(--s24);font-weight:600;font-size:18px;line-height:28px;transition:transform .5s var(--ease),border-color .3s}
+.pill{display:flex;align-items:center;gap:var(--s16);background:var(--bg3);border:1px solid var(--bg5);border-radius:16px;padding:var(--s24);font-weight:600;font-size:18px;line-height:28px;transition:transform .5s var(--ease),border-color .3s}
 .pill:hover{transform:translateY(-4px);border-color:var(--c)}
-.pill .ic{flex:none;width:48px;height:48px;border-radius:12px;background:color-mix(in srgb,var(--c) 14%,var(--bg0));display:grid;place-items:center;color:var(--c)}.pill .ic svg{width:24px;height:24px;transition:transform .5s var(--ease)}.pill:hover .ic svg{transform:scale(1.15) rotate(-8deg)}
+.pill .ic{flex:none;width:64px;height:64px;display:grid;place-items:center;color:var(--c);transform:translateZ(0);transition:transform .35s var(--ease),filter .35s var(--ease)}.pill .ic>svg{width:64px;height:64px;display:block;filter:drop-shadow(0 5px 3px #0005)}.pill .ic>svg>svg{width:45px;height:38px;transform:none!important;transition:none!important}.pill:hover .ic{transform:translateY(-2px);filter:drop-shadow(0 7px 4px #0006)}
 /* tabs */
 .tabs{margin-top:var(--s40)}
 .tablist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s16)}
@@ -97,7 +97,7 @@ h1{font-size:48px;line-height:1.05;max-width:680px;background:linear-gradient(90
 .fg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s24);margin-top:var(--s40)}
 .fc{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:var(--s16);background:var(--bg3);border:1px solid var(--bg5);border-radius:24px;padding:var(--s32);transition:transform .5s var(--ease),border-color .3s}
 .fc::after{content:"";position:absolute;right:-50px;top:-50px;width:200px;height:200px;border-radius:50%;background:var(--c);opacity:.14;filter:blur(44px);pointer-events:none}
-.fc:hover{transform:translateY(-4px);border-color:var(--c)}.fc .scene{height:150px}.fc h3{font-size:24px;line-height:32px}
+.fc:hover{transform:translateY(-4px);border-color:var(--c)}.fc .scene{height:150px}.fc .scene>svg{transform:none!important;transition:none!important}.fc h3{font-size:24px;line-height:32px}
 /* kb */
 .kb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s48);align-items:center}
 .kp{font-size:20px;line-height:28px;color:var(--mu);margin:var(--s16) 0 var(--s24)}
@@ -144,5 +144,5 @@ body{background:#131209}main{position:relative;z-index:1}#hero,main>.sec{backgro
 /* Shared stone surfaces and fitted architectural miniatures. */
 .vs h3,.vs .n{background-color:var(--bg1);background-image:var(--stone-fissures),radial-gradient(ellipse at 0 0,rgba(204,180,153,.10),transparent 65%);background-size:720px 420px,100% 100%}
 .role .rs{height:72px;width:80px;overflow:visible;flex-shrink:0}.role .rs use{filter:none}
-.pill .ic{width:64px;height:64px;background:none;border-radius:0}.pill .ic>svg{width:64px;height:64px;filter:drop-shadow(0 5px 3px #0005)}
+.signal-carrier,.signal-dot{color:#d49a65}.signal-carrier{isolation:isolate}.signal-dot{filter:drop-shadow(0 0 4px #ffc38b)}
 .stone-meeting{max-height:160px;width:100%;filter:drop-shadow(0 12px 8px #0008)}
