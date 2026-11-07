@@ -126,17 +126,6 @@ h1{font-size:48px;line-height:1.05;max-width:680px;background:linear-gradient(90
  .role i,.vs i{transition:none}.role i{transform:scaleX(var(--w))}.vs .y i{transform:scaleX(1)}.vs .n i{transform:scaleX(.18)}.gr .p{transition:none;stroke-dashoffset:0}
 }
 
-/* Scroll assembly: each visible detail is carried independently. */
-html.swarm-on .rv{opacity:1;transform:none;transition:none}
-.swarm-detail{transform-box:fill-box;transform-origin:center;translate:var(--swarm-x,0px) var(--swarm-y,0px);rotate:var(--swarm-r,0deg);opacity:var(--swarm-opacity,1);will-change:auto}
-.swarm-detail.swarm-flying{will-change:translate,rotate,opacity}
-.swarm-detail.swarm-done{will-change:auto}
-.assembly-overlay{position:fixed;inset:0;z-index:45;pointer-events:none;overflow:hidden;contain:strict}
-.assembly-cursor{position:absolute;left:0;top:0;width:20px;height:26px;filter:drop-shadow(0 2px 3px #0009);opacity:0;will-change:transform}
-.assembly-cursor svg{display:block;width:100%;height:100%}
-@media(max-width:600px){.assembly-cursor{width:15px;height:20px}}
-@media(prefers-reduced-motion:reduce){.swarm-detail{translate:none!important;rotate:none!important;opacity:1!important}.assembly-overlay{display:none}}
-
 /* One continuous world behind every section. */
 body{background:#131209}main{position:relative;z-index:1}#hero,main>.sec{background:transparent}#hero::before,.sec::before{display:none}
 .world-grid{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
@@ -151,9 +140,6 @@ body{background:#131209}main{position:relative;z-index:1}#hero,main>.sec{backgro
 @keyframes chart-fill{to{clip-path:inset(0)}}@keyframes chart-dots{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.chart-area{clip-path:none}.chart-endpoints{opacity:1}.gr.in .chart-area,.gr.in .chart-endpoints{animation:none}}
 
-
-/* Settled architecture does not keep decorative CSS transforms running. */
-.swarm-done .bob,.swarm-done.bob,.swarm-done .spin,.swarm-done .fl{animation:none}
 
 /* Shared stone surfaces and fitted architectural miniatures. */
 .vs h3,.vs .n{background-color:var(--bg1);background-image:var(--stone-fissures),radial-gradient(ellipse at 0 0,rgba(204,180,153,.10),transparent 65%);background-size:720px 420px,100% 100%}
